@@ -35,4 +35,8 @@ Movie-Night/
 ├── script.js     # Movie data array, filtering logic, state management, and event listeners
 └── README.md      # Project documentation
 🚦 Getting StartedNo external frameworks or build tools (e.g., Node.js, Webpack) are required.1. Clone the repositoryBashgit clone [https://github.com/Harshith-Kumar768/Movie-Night.git](https://github.com/Harshith-Kumar768/Movie-Night.git)
-2. Run the applicationOpen the index.html file directly in any web browser, or launch it using an extension like Live Server in Visual Studio Code.📝 How It WorksMovie Data: All film entries are maintained in script.js as an array of objects.   Filtering Pipeline: The application chains search, genre filtering, and sorting functions together before rendering the final list of cards to the DOM.   Local Storage: Saved watchlist item IDs are serialized as JSON strings in localStorage (movieNightFavourites) so your list persists across browser reloads[cite: 3].
+2. Run the applicationOpen the index.html file directly in any web browser, or launch it using an extension like Live Server in Visual Studio Code.
+
+📝 How It Works
+Movie Data: All film entries are maintained in script.js as an array of objects.
+Filtering Pipeline: The application chains search, genre filtering, and sorting functions together before rendering the final list of cards to the DOM.   Local Storage: Saved watchlist item IDs are serialized as JSON strings in localStorage (movieNightFavourites) so your list persists across browser reloads.
