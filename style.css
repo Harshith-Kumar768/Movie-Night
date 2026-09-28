@@ -1,0 +1,680 @@
+/* =====================================================
+   MOVIE NIGHT - style.css
+   One theme only: dark cinematic.
+   Sections:
+   1. Colour variables   2. Basic reset   3. Navigation
+   4. Hero   5. Page sections   6. Search + filters
+   7. Movie grid + cards   8. Empty messages   9. Footer
+   10. Details popup   11. Animations
+   ===================================================== */
+
+
+/* ---------- 1. COLOUR VARIABLES ---------- */
+:root {
+  --bg-primary: #0d0d10;
+  --bg-secondary: #15151a;
+  --card-bg: #1b1b22;
+  --text-primary: #f4f4f6;
+  --text-secondary: #9d9da8;
+  --accent: #e5383b;
+  --accent-hover: #c92c2f;
+  --border: #2a2a33;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+
+  --radius: 12px;
+  --font-heading: "Oswald", "Arial Narrow", Arial, sans-serif;
+  --font-body: "Inter", Arial, sans-serif;
+}
+
+
+/* ---------- 2. BASIC RESET ---------- */
+/* Remove default spacing and make width/height include padding and border */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;   /* smooth scrolling for the navbar links */
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+/* Makes the HTML "hidden" attribute always work, even on styled elements */
+[hidden] {
+  display: none !important;
+}
+
+/* Keyboard users can see which button is selected */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+
+/* ---------- 3. NAVIGATION BAR ---------- */
+.site-header {
+  position: sticky;          /* stays at the top while scrolling */
+  top: 0;
+  z-index: 100;
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Flexbox: logo on the left, links on the right */
+.nav {
+  max-width: 1200px;
+  height: 68px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.logo span {
+  color: var(--accent);
+}
+
+/* Flexbox: puts the links in a row */
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  display: flex;
+  align-items: center;
+  padding: 6px 0;
+  color: var(--text-secondary);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--text-primary);
+  border-bottom-color: var(--accent);
+}
+
+.watchlist-count {
+  margin-left: 8px;
+  padding: 0 8px;
+  background-color: var(--accent);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 20px;
+}
+
+
+/* ---------- 4. HERO SECTION ---------- */
+.hero {
+  position: relative;        /* needed for the film strips below */
+  padding: 72px 24px 80px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(229, 56, 59, 0.30), transparent 60%),
+    linear-gradient(180deg, #1a0a0c 0%, var(--bg-primary) 100%);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Film-strip holes along the top and bottom of the hero (decoration only) */
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.12) 0px,
+    rgba(255, 255, 255, 0.12) 16px,
+    transparent 16px,
+    transparent 32px
+  );
+}
+
+.hero::before { top: 14px; }
+.hero::after  { bottom: 14px; }
+
+.hero-content {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-family: var(--font-heading);
+  font-size: 56px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 18px;
+}
+
+.hero-text {
+  max-width: 600px;
+  margin: 0 auto 32px;
+  color: var(--text-secondary);
+  font-size: 18px;
+}
+
+/* Buttons */
+.btn {
+  padding: 13px 32px;
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+
+/* ---------- 5. PAGE SECTIONS ---------- */
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 56px 24px 0;
+  scroll-margin-top: 68px;   /* keeps the heading below the sticky navbar */
+}
+
+.section-title {
+  margin-bottom: 6px;
+  padding-left: 14px;
+  border-left: 4px solid var(--accent);
+  font-family: var(--font-heading);
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.section-subtitle {
+  margin-bottom: 28px;
+  padding-left: 18px;
+  color: var(--text-secondary);
+}
+
+
+/* ---------- 6. SEARCH + FILTERS ---------- */
+.controls {
+  margin-bottom: 24px;
+  padding: 20px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+/* Flexbox: search box takes the free space, dropdown sits on the right */
+.controls-top {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.search-box {
+  position: relative;        /* so the icon can be placed inside the input */
+  flex: 1;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  width: 18px;
+  height: 18px;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+}
+
+.search-box input {
+  width: 100%;
+  padding: 14px 16px 14px 46px;
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-box input::placeholder {
+  color: var(--text-secondary);
+}
+
+/* Search focus effect */
+.search-box input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(229, 56, 59, 0.25);
+}
+
+.sort-select {
+  padding: 0 16px;
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.sort-select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* Flexbox: genre buttons in a row that wraps if needed */
+.genre-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.genre-btn {
+  padding: 8px 20px;
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+}
+
+.genre-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--accent);
+}
+
+/* The genre that is currently selected */
+.genre-btn.active {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+
+.results-count {
+  margin-bottom: 20px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+
+/* ---------- 7. MOVIE GRID + CARDS ---------- */
+/* CSS Grid: as many columns of at least 260px as fit (4 on a laptop) */
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.movie-card {
+  display: flex;             /* Flexbox inside the card: poster on top, info below */
+  flex-direction: column;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+
+/* Hover: card lifts and gets an accent border */
+.movie-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+  box-shadow: 0 12px 28px rgba(229, 56, 59, 0.20);
+}
+
+/* Poster box: fixed 2:3 shape. The title is shown behind the image
+   so something nice appears if the image can not load. */
+.poster-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  background: linear-gradient(160deg, #2a2a33, #15151a);
+}
+
+.poster-fallback {
+  padding: 20px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-family: var(--font-heading);
+  font-size: 22px;
+}
+
+.poster-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;         /* fills the box without stretching the poster */
+  transition: transform 0.4s ease;
+}
+
+/* Hover: poster zooms in slightly */
+.movie-card:hover .poster-img {
+  transform: scale(1.05);
+}
+
+.rating-badge {
+  position: absolute;        /* sits on top of the poster, top-right corner */
+  top: 12px;
+  right: 12px;
+  padding: 3px 10px;
+  background-color: rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.star {
+  color: var(--accent);
+}
+
+.movie-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;                   /* info area fills the rest of the card */
+  padding: 16px;
+}
+
+.movie-title {
+  margin-bottom: 8px;
+  font-family: var(--font-heading);
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+/* Flexbox: year and genre tag side by side */
+.movie-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.genre-tag {
+  padding: 1px 10px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--text-primary);
+  font-size: 12px;
+}
+
+/* Shows at most 4 lines of description, then "..." */
+.movie-description {
+  margin-bottom: 16px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Flexbox: two equal buttons; margin-top:auto pushes them to the bottom */
+.card-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.card-buttons button {
+  flex: 1;
+  padding: 10px 0;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.1s;
+}
+
+.card-buttons button:active {
+  transform: scale(0.95);    /* small "press" feedback */
+}
+
+.details-btn {
+  background-color: var(--accent);
+  border: 1px solid var(--accent);
+  color: #ffffff;
+}
+
+.details-btn:hover {
+  background-color: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.favourite-btn {
+  background-color: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+.favourite-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Favourite button after the movie has been added */
+.favourite-btn.saved {
+  background-color: rgba(229, 56, 59, 0.15);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+
+/* ---------- 8. EMPTY MESSAGES ---------- */
+.empty-message {
+  padding: 60px 20px;
+  text-align: center;
+  background-color: var(--bg-secondary);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  color: var(--text-secondary);
+}
+
+.empty-title {
+  margin-bottom: 6px;
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+  font-size: 26px;
+}
+
+
+/* ---------- 9. FOOTER ---------- */
+.site-footer {
+  margin-top: 72px;
+  padding: 28px 24px;
+  text-align: center;
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+
+/* ---------- 10. DETAILS POPUP (MODAL) ---------- */
+/* The dark layer that covers the whole screen. Hidden until JavaScript adds "open". */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 200;
+  padding: 24px;
+  background-color: rgba(0, 0, 0, 0.80);
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.open {
+  display: flex;
+  animation: fadeIn 0.25s ease;
+}
+
+.modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 820px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  animation: scaleIn 0.25s ease;
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 1;
+  width: 36px;
+  height: 36px;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.modal-close:hover {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Flexbox: poster on the left, details on the right */
+.modal-body {
+  display: flex;
+  gap: 32px;
+  padding: 32px;
+}
+
+.modal-poster {
+  flex-shrink: 0;
+  width: 260px;
+  border-radius: 10px;
+}
+
+.modal-info {
+  flex: 1;
+  padding-right: 24px;
+}
+
+.modal-info h2 {
+  margin-bottom: 12px;
+  font-family: var(--font-heading);
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.modal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+
+.modal-rating {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.modal-description {
+  margin-bottom: 24px;
+  color: var(--text-primary);
+  line-height: 1.7;
+}
+
+.modal-detail {
+  margin-bottom: 10px;
+  color: var(--text-secondary);
+}
+
+.modal-detail strong {
+  color: var(--text-primary);
+}
+
+/* Stops the page behind the popup from scrolling */
+body.modal-open {
+  overflow: hidden;
+}
+
+
+/* ---------- 11. ANIMATIONS ---------- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Respect people who turn animations off in their system settings */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
